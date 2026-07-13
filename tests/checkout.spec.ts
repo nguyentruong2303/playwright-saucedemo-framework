@@ -1,12 +1,9 @@
 import { test, expect } from '../fixtures/page-object';
 
 test.describe('End to End Checkout Flow', () => {
-    test('should complete the checkout process successfully', async ({ loginPage, productsPage, cartPage, checkoutPage }) => {
-        // Step 1: Log in to the application
-        await loginPage.navigateLogin();
-        await loginPage.login('standard_user', 'secret_sauce');
+    test('should complete the checkout process successfully', async ({ productsPage, cartPage, checkoutPage }) => {
 
-        // Step 2: Add a product to the cart
+        // Step 1: Add a product to the cart
         await productsPage.addProductToCartByName('Sauce Labs Backpack');
 
         // Step 3: Proceed to checkout
