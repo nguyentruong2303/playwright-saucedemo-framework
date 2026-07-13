@@ -22,4 +22,9 @@ export class LoginPage {
         await this.passwordInput.fill(password);
         await this.loginButton.click();
     }
+
+    async getErrorMessage(){
+        const errorMessageLocator = this.page.locator('.error-message-container h3');
+        return await errorMessageLocator.textContent();
+    }
 }
