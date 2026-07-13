@@ -9,6 +9,7 @@ export class ProductsPage {
     readonly shopingCartBadge: Locator;
     readonly productNameElements: Locator;
     readonly productPriceElements: Locator;
+    readonly shoppingCartLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,10 +18,20 @@ export class ProductsPage {
         this.shopingCartBadge = page.locator('.shopping_cart_badge');
         this.productNameElements = page.locator('.inventory_item_name');
         this.productPriceElements = page.locator('.inventory_item_price');
+        this.shoppingCartLink = page.locator('.shopping_cart_link');
     }
 
     async addBackpackToCart() {
         await this.backpackAddToCartButton.click();
+    }
+
+    async goToCart() {
+        await this.shoppingCartLink.click();
+    }
+
+    async addProductToCartByName(productName: string) {
+        const productLocator = this.page.locator(`//div[text()='${productName}']//ancestor::div[@class='inventory_item_description']//button[text()='Add to cart']`);
+        await productLocator.click();
     }
 
     async sortProductsBy(option: SortOptions) {
