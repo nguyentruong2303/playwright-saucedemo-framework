@@ -7,22 +7,35 @@ export class ProductsPage {
     readonly pageTitle: Locator;
     readonly backpackAddToCartButton: Locator;
     readonly shopingCartBadge: Locator;
+    readonly productItems: Locator;
     readonly productNameElements: Locator;
     readonly productPriceElements: Locator;
+    readonly productImageElements: Locator;
+    readonly productDescriptionElements: Locator;
     readonly shoppingCartLink: Locator;
+    readonly numberOfCart: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.pageTitle = page.locator('.title');
         this.backpackAddToCartButton = page.locator('#add-to-cart-sauce-labs-backpack');
         this.shopingCartBadge = page.locator('.shopping_cart_badge');
+        this.productItems = page.locator('.inventory_item');
         this.productNameElements = page.locator('.inventory_item_name');
         this.productPriceElements = page.locator('.inventory_item_price');
+        this.productImageElements = page.locator('.inventory_item_img img');
+        this.productDescriptionElements = page.locator('.inventory_item_desc');
         this.shoppingCartLink = page.locator('.shopping_cart_link');
+        this.numberOfCart = page.locator('.shopping_cart_badge');
     }
 
     async addBackpackToCart() {
         await this.backpackAddToCartButton.click();
+    }
+
+    // Click on a product's name to navigate to its detail page
+    async openProductByName(productName: string) {
+        await this.page.locator('.inventory_item_name', { hasText: productName }).click();
     }
 
     async goToCart() {
@@ -52,5 +65,18 @@ export class ProductsPage {
 
         // Convert price strings like "$29.99" to numbers like 29.99
         return priceStrings.map(price => parseFloat(price.replace('$', '')));
+    }
+
+    async getRemoveButtonByName(productName: string): Promise<Locator> {
+        return this.page.locator(`//div[text()='${productName}']//ancestor::div[@class='inventory_item_description']//button[text()='Remove']`);
+    }
+
+    async getAddToCartButtonByName(productName: string): Promise<Locator> {
+        return this.page.locator(`//div[text()='${productName}']//ancestor::div[@class='inventory_item_description']//button[text()='Add to cart']`);
+    }
+
+    async getNumberOfItemsInCart(): Promise<number> {
+        const badgeText = await this.numberOfCart.textContent();
+        return badgeText ? parseInt(badgeText) : 0;
     }
 }

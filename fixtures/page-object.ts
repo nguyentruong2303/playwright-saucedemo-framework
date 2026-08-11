@@ -1,14 +1,18 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { ProductsPage } from '../pages/ProductsPage';
+import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { SideBarMenuPage } from '../pages/SideBarMenuPage';
 
 type MyFixtures = {
     loginPage: LoginPage;
     productsPage: ProductsPage;
+    productDetailPage: ProductDetailPage;
     cartPage: CartPage;
     checkoutPage: CheckoutPage;
+    sideBarMenuPage: SideBarMenuPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -28,6 +32,10 @@ export const test = base.extend<MyFixtures>({
         const productsPage = new ProductsPage(page);
         await use(productsPage);
     },
+    productDetailPage: async ({ page }, use) => {
+        const productDetailPage = new ProductDetailPage(page);
+        await use(productDetailPage);
+    },
     cartPage: async ({ page }, use) => {
         const cartPage = new CartPage(page);
         await use(cartPage);
@@ -36,6 +44,10 @@ export const test = base.extend<MyFixtures>({
         const checkoutPage = new CheckoutPage(page);
         await use(checkoutPage);
     },
+    sideBarMenuPage: async ({ page }, use) => {
+        const sideBarMenuPage = new SideBarMenuPage(page);
+        await use(sideBarMenuPage);
+    }
 });
 
 export { expect } from '@playwright/test';
