@@ -1,7 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 
-export class CheckoutPage {
+export class CheckoutStepOnePage {
     readonly page: Page;
+    readonly pageTitle: Locator;
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
     readonly postalCodeInput: Locator;
@@ -11,6 +12,7 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
+        this.pageTitle = page.locator('.title');
         this.firstNameInput = page.locator('#first-name');
         this.lastNameInput = page.locator('#last-name');
         this.postalCodeInput = page.locator('#postal-code');

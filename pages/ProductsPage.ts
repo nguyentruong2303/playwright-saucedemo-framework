@@ -79,4 +79,8 @@ export class ProductsPage {
         const badgeText = await this.numberOfCart.textContent();
         return badgeText ? parseInt(badgeText) : 0;
     }
+
+    async isNumberOfItemInCartVisible(): Promise<boolean> {
+        return await this.numberOfCart.isVisible();
+    }
 }
