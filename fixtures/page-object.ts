@@ -5,6 +5,8 @@ import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutStepOnePage } from '../pages/CheckoutStepOnePage';
 import { SideBarMenuPage } from '../pages/SideBarMenuPage';
+import { CheckoutStepTwoPage } from '../pages/CheckoutStepTwoPage';
+import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 
 type MyFixtures = {
     loginPage: LoginPage;
@@ -13,6 +15,8 @@ type MyFixtures = {
     cartPage: CartPage;
     checkoutStepOnePage: CheckoutStepOnePage;
     sideBarMenuPage: SideBarMenuPage;
+    checkoutStepTwoPage: CheckoutStepTwoPage;
+    checkoutCompletePage: CheckoutCompletePage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -44,9 +48,17 @@ export const test = base.extend<MyFixtures>({
         const checkoutPage = new CheckoutStepOnePage(page);
         await use(checkoutPage);
     },
+    checkoutStepTwoPage: async ({ page }, use) => {
+        const checkoutStepTwoPage = new CheckoutStepTwoPage(page);
+        await use(checkoutStepTwoPage);
+    },
     sideBarMenuPage: async ({ page }, use) => {
         const sideBarMenuPage = new SideBarMenuPage(page);
         await use(sideBarMenuPage);
+    },
+    checkoutCompletePage: async ({ page }, use) => {
+        const checkoutCompletePage = new CheckoutCompletePage(page);
+        await use(checkoutCompletePage);
     }
 });
 

@@ -9,6 +9,8 @@ export class CheckoutStepOnePage {
     readonly continueButton: Locator;
     readonly finishButton: Locator;
     readonly completeHeader: Locator;
+    readonly errorMessage: Locator;
+    readonly cancelButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +21,8 @@ export class CheckoutStepOnePage {
         this.continueButton = page.locator('#continue');
         this.finishButton = page.locator('#finish');
         this.completeHeader = page.locator('.complete-header');
+        this.errorMessage = page.locator('.error-message-container h3');
+        this.cancelButton = page.locator('.checkout_buttons #cancel');
     }
 
     async fillCheckoutInformation(firstName: string, lastName: string, postalCode: string) {
@@ -30,5 +34,17 @@ export class CheckoutStepOnePage {
 
     async finishCheckout() {
         await this.finishButton.click();
+    }
+
+    async getErrorMessage(): Promise<string | null> {
+        return await this.errorMessage.textContent();
+    }
+
+    async clickCancelButton() {
+        await this.cancelButton.click();
+    }
+
+    async clickContinueButton() {
+        await this.continueButton.click();
     }
 }

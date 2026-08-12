@@ -83,4 +83,8 @@ export class ProductsPage {
     async isNumberOfItemInCartVisible(): Promise<boolean> {
         return await this.numberOfCart.isVisible();
     }
+
+    async getPageTitle(): Promise<string | null> {
+        return await this.pageTitle.textContent();
+    }
 }
