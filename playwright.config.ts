@@ -17,7 +17,9 @@ export default defineConfig({
   testDir: defineBddConfig({
     features: 'features/**/*.feature',
     steps: 'steps/**/*.ts',
+    
   }),
+
   //testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -33,7 +35,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://www.saucedemo.com',
-
+    headless: !!process.env.CI,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },

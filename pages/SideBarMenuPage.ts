@@ -42,4 +42,9 @@ export class SideBarMenuPage {
     async clickResetAppState() {
         await this.resetAppStateLink.click();
     }
+
+    async clickMenuLink(linkText: string) {
+        const linkLocator = this.page.locator(`//a[text()='${linkText}']`);
+        await linkLocator.click();
+    }
 }
