@@ -12,7 +12,6 @@ Given('I am on the products page', async ({ page }) => {
 When('I added a product with name {string} to the cart', async ({ page }, productName: string) => {
     const productsPage = new ProductsPage(page);
     await productsPage.addProductToCartByName(productName);
-    await expect(productsPage.shopingCartBadge).toHaveText('1');
 });
 
 Then('I verify the number of items in the cart is {int}', async ({ page }, expectedCount: number) => {
@@ -24,3 +23,8 @@ Then('I verify the number of items in the cart is not visible', async ({ page })
     const productsPage = new ProductsPage(page);
     await expect(productsPage.shopingCartBadge).toBeHidden();
 }); 
+
+When('I click on the shopping cart link', async ({ page }) => {
+    const productsPage = new ProductsPage(page);
+    await productsPage.goToCart();
+});
