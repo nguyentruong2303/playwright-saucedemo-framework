@@ -51,4 +51,12 @@ export class CartPage {
     async clickContinueShopping(): Promise<void> {
         await this.continueShoppingButton.click();
     }
+
+    async removeAllProductsFromCart(): Promise<void> {
+        const removeButtons = this.page.locator('.cart_item_label button');
+        const count = await removeButtons.count();
+        for (let i = 0; i < count; i++) {
+            await removeButtons.nth(0).click(); // Always click the first button since the list updates after each removal
+        }
+    }
 }
