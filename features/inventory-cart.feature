@@ -54,3 +54,4 @@ Feature: Inventory Cart Tests @inventory-cart
         When I click on the shopping cart link
         When I remove all the products from the cart
         Then I verify the number of items in the cart is not visible
+        

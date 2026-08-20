@@ -59,4 +59,8 @@ export class CartPage {
             await removeButtons.nth(0).click(); // Always click the first button since the list updates after each removal
         }
     }
+
+    async getAllItemNamesInCart(): Promise<string[]> {
+        return await this.page.locator('.cart_item .inventory_item_name').allTextContents();
+    }   
 }

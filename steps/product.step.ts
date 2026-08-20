@@ -1,5 +1,6 @@
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
+import { DataTable } from '@cucumber/cucumber';
 import { ProductsPage } from '../pages/ProductsPage';
 
 const { Given, When, Then } = createBdd();
@@ -27,4 +28,13 @@ Then('I verify the number of items in the cart is not visible', async ({ page })
 When('I click on the shopping cart link', async ({ page }) => {
     const productsPage = new ProductsPage(page);
     await productsPage.goToCart();
+});
+
+Given('I have added the following products to the cart:', async ({ page }, dataTable: DataTable) => {
+  const productsPage = new ProductsPage(page);
+  const products = dataTable.raw().flat();
+
+  for (const name of products) {
+    await productsPage.addProductToCart(name);
+  }
 });

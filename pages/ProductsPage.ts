@@ -87,4 +87,12 @@ export class ProductsPage {
     async getPageTitle(): Promise<string | null> {
         return await this.pageTitle.textContent();
     }
+
+    async addProductToCart(productName: string) {
+  await this.page
+    .locator('.inventory_item')
+    .filter({ hasText: productName })
+    .getByRole('button', { name: 'Add to cart' })
+    .click();
+}
 }
