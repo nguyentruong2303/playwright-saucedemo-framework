@@ -71,7 +71,7 @@ test.describe('Checkout Step Two Page Tests', () => {
         // Click the cancel button on the checkout step two page
         await checkoutStepTwoPage.clickCancelButton();
 
-        // Verify that the user is redirected back to the cart page by checking the page title
+        // Verify that the user is redirected back to the Product page by checking the page title
         const productsPageTitle = await productsPage.getPageTitle();
         expect(productsPageTitle).toBe('Products');
     });

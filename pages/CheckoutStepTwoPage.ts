@@ -46,6 +46,21 @@ export class CheckoutStepTwoPage {
         return await itemNameLocator.textContent();
     }
 
+    async getAllItemsInCheckout() {
+        const cartItems = this.page.locator('.cart_item');
+        const items = [];
+        const count = await cartItems.count();
+        for (let i = 0; i < count; i++) {
+            const item = cartItems.nth(i);
+            const name = await item.locator('.inventory_item_name').textContent();
+            const price = await item.locator('.inventory_item_price').textContent();
+            const quantity = await item.locator('.cart_quantity').textContent();
+
+            items.push({name,price,quantity})
+        }
+        return items;
+    }
+
     async getItemTotalPrice() {
         return await this.itemTotalPrice.textContent().then(text => text?.replace('Item total: $', ''));
     }
@@ -66,4 +81,16 @@ export class CheckoutStepTwoPage {
         await this.finishButtonLocator.click();
     }
 
+    async getPriceTotal() {
+        const prices = [];
+        const item = await this.itemTotalPrice.textContent().then(text => text?.replace('Item total: ', ''));
+        const tax = await this.taxPrice.textContent().then(text => text?.replace('Tax: ', ''));
+        const total = await this.totalPrice.textContent().then(text => text?.replace('Total: ', ''));
+        
+        return {
+        'item': item?.replace('Item total: ', '').trim() ?? '',
+        'tax': tax?.replace('Tax: ', '').trim() ?? '',
+        'total': total?.replace('Total: ', '').trim() ?? '',
+        };
+    }
 }
